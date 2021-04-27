@@ -25,7 +25,7 @@ describe("Users Routes", () => {
     it("Should return All Users in the database", (done) => {
         agent
             .get("/Users")
-            .send({"start":1})
+            .send({"amount":1})
             .end((err,res) => {
                 if(err) throw err.message
                 expect(res).to.have.status(200)

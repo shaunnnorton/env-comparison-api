@@ -10,11 +10,11 @@ The following routes can be used to access the api.
 
   #### Parameters
 
-    > start (*start=100*) *The User to start your return at*
+    > amount (*amount=100*) *how many users to return*
 
   #### Behavior
 
-    > Returns the all users in the range specified by the query parameters.
+    > Returns random users to the amount specified in the query parameter
 
   #### Response
 
@@ -47,12 +47,13 @@ The following routes can be used to access the api.
 
   #### Parameters
 
-    > * userid (string)
-    > * DATA (object) [POST,PUT]
+    > * userid (string) *The user to return the hardware from* 
+    > * DATA (object) [POST,PUT,DELETE] *The Hardware to create update or delete to/from the user* 
+    >   * {type:(Computer,Mouse,Monitor,GPU,CPU), name:(e.g. MackbookPro), specs:(e.g. 2.4Ghz)}
 
   #### Behavior
 
-    > * [GET] Returns users hardware for the userid "userid".
+    > * [GET] Returns user's hardware for the userid "userid".
     > * [POST] Creates new hardware for user with the data provided in "DATA"
     > * [PUT] Updates a user's hardware with the data provided in "DATA"
     > * [Delete] Deletes user's hardware using data provided in "DATA"
@@ -61,18 +62,19 @@ The following routes can be used to access the api.
 
    > * Format: JSON
    > * JSON:
-   >   * ```{user:UserObject,hardware:[HardwareList]}```
+   >   * ```{user:UserObject, hardware:[HardwareList]}```
 
 * ### /Users/{userid}/software *Methods: [GET,POST,PUT,DELETE]*
 
   #### Parameters
 
-    > * userid (string)
-    > * DATA (object) [POST,PUT]
+    > * userid (string) *The user to return the software from*
+    > * DATA (object) [POST,PUT,DELETE] *The Software to create update or delete to/from the user* 
+    >   * {type:(OS,IDE,Framwork), name:(e.g. VSCode), version:(e.g. 10.1)}
 
   #### Behavior
 
-    > * [GET] Returns users software for the userid "userid".
+    > * [GET] Returns user's software for the userid "userid".
     > * [POST] Creates new software for user with the data provided in "DATA"
     > * [PUT] Updates a user's software with the data provided in "DATA"
     > * [Delete] Deletes user's software using data provided in "DATA"
@@ -87,32 +89,32 @@ The following routes can be used to access the api.
 
   #### Parameters
 
-    > * start (*start=100*)
-    > * type [optional] (string)
+    > * amount (int) *The number of results to return*
+    > * type (string) *The type of hardware to return*
     
   #### Behavior
 
-    > Returns the all hardware in the range specified by the query parameters.
+    > Returns the all hardware of the type specified by the query parameters.
 
   #### Response
 
    > * Format: JSON
    > * JSON:
-   >   * ```{Data:[*Listofhardware*]}```
+   >   * ```{hardware:[*Listofhardware*]}```
 
 * ### /software *Methods: [GET]*
 
   #### Parameters
 
-    > * start (*start=100*)
-    > * type [optional] (string)
+    > * amount (int) *The number of results to return*
+    > * type (string) *The type of software to return*
 
   #### Behavior
 
-    > Returns the all software in the range specified by the query parameters.
+    > Returns the all software of the type by the query parameters.
 
   #### Response
 
    > * Format: JSON
    > * JSON:
-   >   * ```{Data:[*Listofsoftware*]}```
+   >   * ```{software:[*Listofsoftware*]}```

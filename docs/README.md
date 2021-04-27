@@ -10,7 +10,7 @@ The following routes can be used to access the api.
 
   #### Parameters
 
-    > start (*start=100*)
+    > start (*start=100*) *The User to start your return at*
 
   #### Behavior
 
@@ -20,14 +20,15 @@ The following routes can be used to access the api.
 
    > * Format: JSON
    > * JSON:
-   >   * ```{Data:[*ListofUsers*]}```
+   >   * ```{Users:[User1,...]}```
 
 * ### /Users/{userid} *Methods: [GET,POST,PUT,DELETE]*
 
   #### Parameters
 
-    > * userid (string)
-    > * DATA (object) [POST,PUT]
+    > * userid (string) [all methods] *The userid/username of the user you are looking for* 
+    > * DATA (object) for [POST,PUT,DELETE] *Data provided to update create or delete a User*
+    >   * {username:<username>, password:<password>}
 
   #### Behavior
 
@@ -37,11 +38,10 @@ The following routes can be used to access the api.
     > * [Delete] Deletes user with userid "userid"
 
   #### Response
-
-   > * Format: JSON
-   > * JSON:
-   >   * ```{User:UserObject}```
-
+   > * [GET]
+   >   * Format: JSON
+   >   * JSON:
+   >     * ```{User:UserObject}```
 
 * ### /Users/{userid}/hardware *Methods: [GET,POST,PUT,DELETE]*
 

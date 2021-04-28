@@ -1,5 +1,5 @@
 import express from "express"
-
+import { readyState } from "./data/env-api-db"
 
 const app = express()
 

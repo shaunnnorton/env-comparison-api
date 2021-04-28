@@ -16,11 +16,28 @@ describe("Users Routes", () => {
         password:"password",
     }
 
-    // beforeEach((done) => {
-    //     const newUser = new User(sampleUser)
-    //     newUser.save()
-    //     done()
-    // })
+    beforeEach((done) => {
+        const newUser = new User(sampleUser)
+        newUser.save()
+            .then((res)=>{
+                done()
+            })
+            .catch(err=>{
+                done(err)
+            })
+
+    })
+
+    afterEach((done) => {
+        User.findOneAndDelete({username:"testone"})
+            .then((res) => {
+                console.log("Deleted TEMP user")
+                done()
+            })
+            .catch(err => {
+                done(err)
+            })
+    })
 
     it("Should return All Users in the database", (done) => {
         agent

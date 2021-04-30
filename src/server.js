@@ -1,14 +1,16 @@
 import express from "express"
 import { readyState } from "./data/env-api-db"
+import routes from "./routes/index"
 
 const app = express()
 
 
+app.use(express.json())
+app.use(express.urlencoded({extended:false}))
 
 
-app.get("/",(req,res) => {
-    return res.send("TEST")
-})
+app.use('/users',routes.users)
+
 
 
 

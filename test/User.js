@@ -15,11 +15,21 @@ describe("Users Routes", () => {
         username:"testone",
         password:"password",
     }
+    const sampleUser2 = {
+        username:"testtwo",
+        password:"password",
+    }
+    
+
 
     beforeEach((done) => {
         const newUser = new User(sampleUser)
+        const newTwoser = new User(sampleUser2)
         newUser.save()
             .then((res)=>{
+                return newTwoser.save()
+            })
+            .then((result) => {
                 done()
             })
             .catch(err=>{
@@ -32,6 +42,9 @@ describe("Users Routes", () => {
         User.findOneAndDelete({username:"testone"})
             .then((res) => {
                 console.log("Deleted TEMP user")
+                return User.findOneAndDelete({username:"testtwo"})
+            })
+            .then(rresult => {
                 done()
             })
             .catch(err => {
@@ -41,8 +54,7 @@ describe("Users Routes", () => {
 
     it("Should return All Users in the database", (done) => {
         agent
-            .get("/Users")
-            .send({"amount":1})
+            .get("/Users/?amount=1")
             .end((err,res) => {
                 if(err) throw err.message
                 expect(res).to.have.status(200)

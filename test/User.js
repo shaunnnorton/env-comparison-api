@@ -41,11 +41,11 @@ describe("Users Routes", () => {
     afterEach((done) => {
         User.findOneAndDelete({ username: "testone" })
             .then((res) => {
-                console.log("Deleted TEMP user", res)
+                //console.log("Deleted TEMP user", res)
                 return User.findOneAndDelete({ username: "testtwo" })
             })
             .then(rresult => {
-                console.log(rresult)
+                //.log(rresult)
                 done()
             })
             .catch(err => {
@@ -139,7 +139,7 @@ describe("Users Routes", () => {
     it("Should remove user with the id and password provided", (done) => {
         agent
             .delete("/Users/testone")
-            .send({ DATA: { password: "password" } })
+            .send({ DATA: { userpassword: "password" } })
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)

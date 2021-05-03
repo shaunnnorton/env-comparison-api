@@ -82,4 +82,15 @@ router.put("/:username", authUser, (req, res) => {
 
 })
 
+router.delete("/:username", authUser,(req,res) => {
+    User.findOneAndDelete({username:req.params.username})
+        .then(user => {
+            res.send({User:user})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
+
+
 export default router

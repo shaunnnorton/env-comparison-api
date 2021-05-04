@@ -10,7 +10,7 @@ app.use(express.urlencoded({extended:false}))
 
 
 app.use('/users',routes.users)
-
+app.use("/users", routes.usersHardware)
 
 
 

@@ -7,7 +7,7 @@ const UserSchema = new Schema({
     updatedAt: { type: Date },
     password: { type: String, select: false },
     username: { type: String, required: true },
-    hardware: [{type: Schema.Types.ObjectId, ref: "hardware"}],
+    hardware: [{type: Schema.Types.ObjectId, ref: "Hardware"}],
     software: [{type: Schema.Types.ObjectId, ref: "software"}]
 },
     {timestamps: {createdAt: 'created_at'}}

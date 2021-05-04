@@ -6,6 +6,8 @@ const should = chai.should()
 const expect = chai.expect
 
 import User from "./../src/models/User"
+import Hardware from "./../src/models/Hardware"
+
 
 chai.use(chaiHttp)
 
@@ -19,11 +21,27 @@ describe("Users Routes", () => {
         username: "testtwo",
         password: "password",
     }
-
+    const sampleHardware = {
+        type: "computer",
+        name: "macbookpro",
+        specs: "intel"
+    }
+    let newHardware = ''
+    before(done => {
+        newHardware = new Hardware(sampleHardware)
+        newHardware.save()
+            .then(()=>{
+                done()
+            })
+            .catch(err => {
+                done(err)
+            })
+    })
 
 
     beforeEach((done) => {
         const newUser = new User(sampleUser)
+        newUser.hardware.push(newHardware)
         const newTwoser = new User(sampleUser2)
         newUser.save()
             .then((res) => {
@@ -64,6 +82,9 @@ describe("Users Routes", () => {
         })
             .then(res => {
                 console.log(res)
+                return Hardware.deleteMany({name: {$in:['macbookpro']}})
+            })
+            .then(updated=>{
                 done()
             })
             .catch(err => {

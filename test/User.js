@@ -189,13 +189,16 @@ describe("Users Routes", () => {
     it("Should add to a users hardware", (done) => {
         agent
             .post("/Users/testone/hardware")
-            .send({ type: "computer", name: "macbookpro", specs: "intel" })
+            .send({DATA:{userpassword:'password', hardware:{
+                type: "computer", 
+                name: "Custom PC", 
+                specs: "intel" }}})
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
                 expect(res.body).to.have.property("user")
                 expect(res.body).to.have.property("hardware")
-                expect(res.body.hardware).to.have.deep.property("type", "computer")
+                expect(res.body.hardware[1]).to.have.deep.property("name","Custom PC")
                 done()
             })
     })

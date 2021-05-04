@@ -1,6 +1,8 @@
 import { Router } from "express"
 import bcrypt from "bcryptjs"
 import User from "./../models/User"
+import Hardware from "./../models/Hardware"
+import { user } from "../../../Reddit-Tutorial/src/data/reddit-db"
 
 
 const authUser = (req, res, next) => {
@@ -31,7 +33,7 @@ router.get("/:username/hardware", (req,res) => {
                 'user':result.username,
                 "hardware":result.hardware
             }
-            console.log(response)
+            //console.log(response)
             res.send(response)
         })
         .catch(err=>{
@@ -39,7 +41,32 @@ router.get("/:username/hardware", (req,res) => {
         })
 })
 
+router.post("/:username/hardware",authUser ,(req,res) => {
+    User.findOne({username:req.params.username}).populate('hardware')
+        .then(user => {
+            //console.log(user)
+            let Hardware_data = req.body.DATA.hardware
+            //console.log(Hardware_data)
+            let newHardware = new Hardware(Hardware_data)
+            user.hardware.push(newHardware)
+            newHardware.save()
+            .then((result) => {
+                //console.log(result,user)
+                let response = {
+                    user: user.username,
+                    hardware: user.hardware
+                }
+                res.send(response)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        })
+        .catch(err=>{
+            console.log(err)
+        })
 
+})
 
 
 

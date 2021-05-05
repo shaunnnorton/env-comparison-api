@@ -26,23 +26,23 @@ const authUser = (req, res, next) => {
 
 const router = Router()
 
-router.get("/:username/hardware", (req,res) => {
-    User.findOne({username:req.params.username}).lean().populate('hardware')
+router.get("/:username/hardware", (req, res) => {
+    User.findOne({ username: req.params.username }).lean().populate('hardware')
         .then(result => {
             let response = {
-                'user':result.username,
-                "hardware":result.hardware
+                'user': result.username,
+                "hardware": result.hardware
             }
             //console.log(response)
             res.send(response)
         })
-        .catch(err=>{
+        .catch(err => {
             console.log(err)
         })
 })
 
-router.post("/:username/hardware",authUser ,(req,res) => {
-    User.findOne({username:req.params.username}).populate('hardware')
+router.post("/:username/hardware", authUser, (req, res) => {
+    User.findOne({ username: req.params.username }).populate('hardware')
         .then(user => {
             //console.log(user)
             let Hardware_data = req.body.DATA.hardware
@@ -50,41 +50,58 @@ router.post("/:username/hardware",authUser ,(req,res) => {
             let newHardware = new Hardware(Hardware_data)
             user.hardware.push(newHardware)
             newHardware.save()
-            .then((result) => {
-                //console.log(result,user)
-                let response = {
-                    user: user.username,
-                    hardware: user.hardware
-                }
-                res.send(response)
-            })
-            .catch(err=>{
-                console.log(err)
-            })
+                .then((result) => {
+                    //console.log(result,user)
+                    let response = {
+                        user: user.username,
+                        hardware: user.hardware
+                    }
+                    res.send(response)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         })
-        .catch(err=>{
+        .catch(err => {
             console.log(err)
         })
 
 })
 
-router.put("/:username/hardware",authUser, (req,res) => {
+router.put("/:username/hardware", authUser, (req, res) => {
     Hardware.findOneAndUpdate(
-        req.body.DATA.Hardware, 
+        req.body.DATA.Hardware,
         req.body.DATA.Changes,
-        {new:true})
+        { new: true })
         .then(document => {
             let response = {
-                user:req.params.username,
-                hardware:document
+                user: req.params.username,
+                hardware: document
             }
-            console.log(response)
+            //console.log(response)
             res.send(response)
         })
-        .catch(err=>{
+        .catch(err => {
             console.log(err)
         })
 
+})
+
+
+router.delete("/:username/hardware", authUser, (req, res) => {
+    //console.log(req.body.DATA.hardware.name)
+    Hardware.findOneAndDelete(req.body.DATA.hardware)
+        .then(doc => {
+            let response = {
+                user: req.params.username,
+                hardware: doc
+            }
+            //console.log(response)
+            res.send(response)
+        })
+        .catch(err => {
+            console.log(err)
+        })
 })
 
 

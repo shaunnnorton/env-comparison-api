@@ -222,13 +222,13 @@ describe("Users Routes", () => {
     it("Should delete from a users hardware", (done) => {
         agent
             .delete("/Users/testone/hardware")
-            .send({ type: "computer", name: "macbookpro", specs: "intel" })
+            .send({DATA:{ userpassword:"password" ,hardware:{type: "computer", name: "macbookpro", specs: "intel33" }}})
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
                 expect(res.body).to.have.property("user")
                 expect(res.body).to.have.property("hardware")
-                expect(res.body.hardware).to.not.have.deep.property("type", "computer")
+                expect(res.body.hardware).to.have.deep.property("type", "computer")
                 done()
             })
     })

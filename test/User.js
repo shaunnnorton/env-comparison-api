@@ -7,6 +7,7 @@ const expect = chai.expect
 
 import User from "./../src/models/User"
 import Hardware from "./../src/models/Hardware"
+import Software from "./../src/models/Software"
 
 
 chai.use(chaiHttp)
@@ -23,7 +24,7 @@ describe("Users Routes", () => {
     }
     const sampleHardware = {
         type: "computer",
-        name: "macbookpro",
+        name: "catdookdough",
         specs: "intel"
     }
     let newHardware = ''
@@ -82,10 +83,13 @@ describe("Users Routes", () => {
         })
             .then(res => {
                 console.log(res)
-                return Hardware.deleteMany({name: {$in:['macbookpro', "Custom PC"]}})
+                return Hardware.deleteMany({name: {$in:['catdookdough', "DustomNameTEST"]}})
             })
             .then(updated=>{
                 console.log(updated)
+                return Software.deleteMany({namd:{$in:['BACKOS']}})
+            })
+            .then(fin => {
                 done()
             })
             .catch(err => {
@@ -192,14 +196,14 @@ describe("Users Routes", () => {
             .post("/Users/testone/hardware")
             .send({DATA:{userpassword:'password', hardware:{
                 type: "computer", 
-                name: "Custom PC", 
+                name: "DustomNameTEST", 
                 specs: "intel" }}})
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
                 expect(res.body).to.have.property("user")
                 expect(res.body).to.have.property("hardware")
-                expect(res.body.hardware[1]).to.have.deep.property("name","Custom PC")
+                expect(res.body.hardware[1]).to.have.deep.property("name","DustomNameTEST")
                 done()
             })
     })
@@ -207,7 +211,7 @@ describe("Users Routes", () => {
     it("Should update a users hardware", (done) => {
         agent
             .put("/Users/testone/hardware")
-            .send({ DATA: { "userpassword": "password","Hardware":{name:"macbookpro"} ,"Changes": { specs: "intel33" } } })
+            .send({ DATA: { "userpassword": "password","Hardware":{name:"catdookdough"} ,"Changes": { specs: "intel33" } } })
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
@@ -222,7 +226,7 @@ describe("Users Routes", () => {
     it("Should delete from a users hardware", (done) => {
         agent
             .delete("/Users/testone/hardware")
-            .send({DATA:{ userpassword:"password" ,hardware:{type: "computer", name: "macbookpro", specs: "intel33" }}})
+            .send({DATA:{ userpassword:"password" , hardware:{type: "computer", name: "catdookdough", specs: "intel33" }}})
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
@@ -250,13 +254,13 @@ describe("Users Routes", () => {
     it("Should add to a users software", (done) => {
         agent
             .post("/Users/testone/software")
-            .send({ name: "MacOS", version: "Big Sur", type: "OS" })
+            .send({DATA:{userpassword:"password",software:{ name: "BACKOS", version: "Big Tur", type: "OS" }}})
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
                 expect(res.body).to.have.property("user")
                 expect(res.body).to.have.property("software")
-                expect(res.body.software).to.have.deep.property("type", "OS")
+                expect(res.body.software[0]).to.have.deep.property("version", "Big Tur")
                 done()
             })
     })
@@ -264,7 +268,7 @@ describe("Users Routes", () => {
     it("Should update a users software", (done) => {
         agent
             .put("/Users/testone/software")
-            .send({ name: "MacOS", version: "Big Sur", type: "OSx" })
+            .send({DATA:{userpassword:"password",software: { name: "BACKOS", version: "Big Tur", type: "OS" }, Changes:{type:"OSx"}}})
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
@@ -279,7 +283,7 @@ describe("Users Routes", () => {
     it("Should delete from a users software", (done) => {
         agent
             .delete("/Users/testone/software")
-            .send({ name: "MacOS", version: "Big Sur", type: "OS" })
+            .send({DATA:{userpassword:"password", software:{ name: "BACKOS", version: "Big Tur", type: "OSx" }}})
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)

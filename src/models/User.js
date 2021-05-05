@@ -8,7 +8,7 @@ const UserSchema = new Schema({
     password: { type: String, select: false },
     username: { type: String, required: true },
     hardware: [{type: Schema.Types.ObjectId, ref: "Hardware"}],
-    software: [{type: Schema.Types.ObjectId, ref: "software"}]
+    software: [{type: Schema.Types.ObjectId, ref: "Software"}]
 },
     {timestamps: {createdAt: 'created_at'}}
 )

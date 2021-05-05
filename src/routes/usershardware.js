@@ -1,4 +1,4 @@
-import { Router } from "express"
+import { response, Router } from "express"
 import bcrypt from "bcryptjs"
 import User from "./../models/User"
 import Hardware from "./../models/Hardware"
@@ -61,6 +61,25 @@ router.post("/:username/hardware",authUser ,(req,res) => {
             .catch(err=>{
                 console.log(err)
             })
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+
+})
+
+router.put("/:username/hardware",authUser, (req,res) => {
+    Hardware.findOneAndUpdate(
+        req.body.DATA.Hardware, 
+        req.body.DATA.Changes,
+        {new:true})
+        .then(document => {
+            let response = {
+                user:req.params.username,
+                hardware:document
+            }
+            console.log(response)
+            res.send(response)
         })
         .catch(err=>{
             console.log(err)

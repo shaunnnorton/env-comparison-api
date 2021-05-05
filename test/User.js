@@ -82,9 +82,10 @@ describe("Users Routes", () => {
         })
             .then(res => {
                 console.log(res)
-                return Hardware.deleteMany({name: {$in:['macbookpro']}})
+                return Hardware.deleteMany({name: {$in:['macbookpro', "Custom PC"]}})
             })
             .then(updated=>{
+                console.log(updated)
                 done()
             })
             .catch(err => {
@@ -206,7 +207,7 @@ describe("Users Routes", () => {
     it("Should update a users hardware", (done) => {
         agent
             .put("/Users/testone/hardware")
-            .send({ type: "computer", name: "macbookpro", specs: "intel33" })
+            .send({ DATA: { "userpassword": "password","Hardware":{name:"macbookpro"} ,"Changes": { specs: "intel33" } } })
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)

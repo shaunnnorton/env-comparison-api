@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/shaunnnorton/env-comparison-api/issues"
   },
-  "homepage": "https://github.com/shaunnnorton/env-comparison-api#readme",
+  "homepage": "https://shaunnnorton.github.io/env-comparison-api/#/",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

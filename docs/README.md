@@ -20,7 +20,7 @@ The following routes can be used to access the api.
 
    > * Format: JSON
    > * JSON:
-   >   * ```{Users:[User1,...]}```
+   >   * ```{Response:(Status),DATA:{Users:[User1,...]}}```
 
 ### /Users/{userid} *Methods: [GET,POST,PUT,DELETE]*
 
@@ -42,7 +42,7 @@ The following routes can be used to access the api.
    > * [GET,POST,PUT,DELETE]
    >   * Format: JSON
    >   * JSON:
-   >     * ```{User:{_id:(objectId), username:(username), software:[(list_of_software)], hardware:[(list_of_hardware)]}}```
+   >     * ```{Response:(Status),DATA:{User:{_id:(objectId), username:(username), software:[(list_of_software)], hardware:[(list_of_hardware)]}}}```
 
 ### /Users/{userid}/hardware *Methods: [GET,POST,PUT,DELETE]*
 
@@ -63,7 +63,7 @@ The following routes can be used to access the api.
 
    > * Format: JSON
    > * JSON:
-   >   * ```{user:UserObject, hardware:[HardwareList]}```
+   >   * ```{Response:(Status),DATA:{user:UserObject, hardware:[HardwareList]}}```
 
 ### /Users/{userid}/software *Methods: [GET,POST,PUT,DELETE]*
 
@@ -84,7 +84,7 @@ The following routes can be used to access the api.
 
    > * Format: JSON
    > * JSON:
-   >   * ```{user:UserObject,software:[SoftwareList]}```
+   >   * ```{Response:(Status),DATA:{user:UserObject,software:[SoftwareList]}}```
 
 ### /hardware *Methods: [GET]*
 
@@ -101,7 +101,7 @@ The following routes can be used to access the api.
 
    > * Format: JSON
    > * JSON:
-   >   * ```{hardware:[*Listofhardware*]}```
+   >   * ```{Response:(Status),DATA:{hardware:[*Listofhardware*]}}```
 
 ### /software *Methods: [GET]*
 
@@ -117,7 +117,7 @@ The following routes can be used to access the api.
 
    > * Format: JSON
    > * JSON:
-   >   * ```{software:[*Listofsoftware*]}```
+   >   * ```{Response:(Status),DATA:{software:[*Listofsoftware*]}}```
 
 ## Examples
 

@@ -29,14 +29,20 @@ router.get("/:username/software", (req, res) => {
     User.findOne({ username: req.params.username }).lean().populate('software')
         .then(result => {
             let response = {
-                'user': result.username,
-                "software": result.software
+                Response:"Success",
+                DATA:{'user': result.username,
+                    "software": result.software}
             }
             //console.log(response)
             res.send(response)
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
+
         })
 })
 
@@ -52,17 +58,28 @@ router.post("/:username/software", authUser, (req, res) => {
                 .then((result) => {
                     //console.log(result,user)
                     let response = {
-                        user: user.username,
-                        software: user.software
+                        Response:"Success",
+                        DATA:{'user': user.username,
+                            "software": user.software}
                     }
-                    res.send(response)
+                    res.status(201).send(response)
                 })
                 .catch(err => {
-                    console.log(err)
+                    let response = {
+                        Response:ERROR,
+                        DATA:{err}
+                    }
+                    res.status(400).send(response)
+        
                 })
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
+
         })
 
 })
@@ -74,14 +91,20 @@ router.put("/:username/software", authUser, (req, res) => {
         { new: true })
         .then(document => {
             let response = {
-                user: req.params.username,
-                software: document
+                Response:"Success",
+                DATA:{'user': req.params.username,
+                    "software": document}
             }
             //console.log(response)
             res.send(response)
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
+
         })
 
 })
@@ -92,14 +115,20 @@ router.delete("/:username/software", authUser, (req, res) => {
     Software.findOneAndDelete(req.body.DATA.software)
         .then(doc => {
             let response = {
-                user: req.params.username,
-                software: doc
+                Response:"Success",
+                DATA:{'user': req.params.username,
+                    "software": doc}
             }
             //console.log(response)
             res.send(response)
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
+
         })
 })
 

@@ -44,7 +44,8 @@ describe("Hardware Routes", ()=>{
             .end((err,res)=>{
                 if(err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("hardware")
+                //console.log(res)
+                expect(res.body.DATA).to.have.property("hardware")
                 done()
             })
     })

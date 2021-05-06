@@ -7,7 +7,8 @@ router.get("/", (req,res) => {
     Software.find({type:req.query.type}).limit(Number(req.query.amount)).lean()
         .then(found => {
             let response = {
-                software:found
+                Response:"Success",
+                DATA:{software:found}
             }
             //console.log(response)
             res.send(response)

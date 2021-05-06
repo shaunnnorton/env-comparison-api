@@ -7,7 +7,8 @@ router.get("/", (req,res) => {
     Hardware.find({type:req.query.type}).limit(Number(req.query.amount)).lean()
         .then(found => {
             let response = {
-                hardware:found
+                Response:"Success",
+                DATA:{hardware:found}
             }
             //console.log(response)
             res.send(response)

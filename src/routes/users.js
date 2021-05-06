@@ -13,7 +13,7 @@ const authUser = (req, res, next) => {
                 next()
             }
             else {
-                res.status(400).send({ "ERROR": "Passoword Error" })
+                res.status(403).send({ "ERROR": "Passoword Error" })
             }
         })
         .catch(error => {
@@ -34,10 +34,18 @@ router.get("/", (req, res) => {
         return User.find({}).limit(Number(req.query.amount)).skip(toSkip).lean().populate()
     })
         .then(result => {
-            res.send({ Users: result })
+            let response = {
+                Response:"Success",
+                DATA:{users:result}
+            }
+            res.send(response)
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
         })
 })
 
@@ -45,10 +53,18 @@ router.get("/:username", (req, res) => {
     User.findOne({ 'username': req.params.username }).lean().then(user => {
         //console.log(user)
         //console.log(req.params.username)
-        res.send({ "User": user })
+        let response = {
+            Response:"Success",
+            DATA:{user:user}
+        }
+        res.send(response)
     })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
         })
 })
 
@@ -59,10 +75,18 @@ router.post("/:username", (req, res) => {
             return User.findOne(new_user).lean()
         })
         .then(user => {
-            res.send({ "User": user })
+            let response = {
+                Response:"Success",
+                DATA:{user:user}
+            }
+            res.status(201).send(response)
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
         })
 })
 
@@ -74,10 +98,19 @@ router.put("/:username", authUser, (req, res) => {
         { returnNewDocument: true }
     )
         .then(user => {
-            res.send({ "User": user })
+            let response = {
+                Response:"Success",
+                DATA:{user:user}
+            }
+            res.send(response)
+            
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
         })
 
 })
@@ -85,10 +118,18 @@ router.put("/:username", authUser, (req, res) => {
 router.delete("/:username", authUser,(req,res) => {
     User.findOneAndDelete({username:req.params.username})
         .then(user => {
-            res.send({User:user})
+            let response = {
+                Response:"Success",
+                DATA:{user:user}
+            }
+            res.send(response)
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
         })
 })
 

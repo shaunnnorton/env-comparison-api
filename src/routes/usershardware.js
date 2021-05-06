@@ -15,7 +15,7 @@ const authUser = (req, res, next) => {
                 next()
             }
             else {
-                res.status(400).send({ "ERROR": "Passoword Error" })
+                res.status(403).send({ "ERROR": "Passoword Error" })
             }
         })
         .catch(error => {
@@ -30,14 +30,19 @@ router.get("/:username/hardware", (req, res) => {
     User.findOne({ username: req.params.username }).lean().populate('hardware')
         .then(result => {
             let response = {
-                'user': result.username,
-                "hardware": result.hardware
+                Response:"Success",
+                DATA:{'user': result.username,
+                    "hardware": result.hardware}
             }
             //console.log(response)
             res.send(response)
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
         })
 })
 
@@ -53,17 +58,26 @@ router.post("/:username/hardware", authUser, (req, res) => {
                 .then((result) => {
                     //console.log(result,user)
                     let response = {
-                        user: user.username,
-                        hardware: user.hardware
+                        Response:"Success",
+                        DATA:{'user': user.username,
+                            "hardware": user.hardware}
                     }
-                    res.send(response)
+                    res.status(201).send(response)
                 })
                 .catch(err => {
-                    console.log(err)
+                    let response = {
+                        Response:ERROR,
+                        DATA:{err}
+                    }
+                    res.status(400).send(response)
                 })
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
         })
 
 })
@@ -75,14 +89,19 @@ router.put("/:username/hardware", authUser, (req, res) => {
         { new: true })
         .then(document => {
             let response = {
-                user: req.params.username,
-                hardware: document
+                Response:"Success",
+                DATA:{'user': req.params.username,
+                    "hardware": document}
             }
             //console.log(response)
             res.send(response)
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
         })
 
 })
@@ -93,14 +112,19 @@ router.delete("/:username/hardware", authUser, (req, res) => {
     Hardware.findOneAndDelete(req.body.DATA.hardware)
         .then(doc => {
             let response = {
-                user: req.params.username,
-                hardware: doc
+                Response:"Success",
+                DATA:{'user': req.params.username,
+                    "hardware": doc}
             }
             //console.log(response)
             res.send(response)
         })
         .catch(err => {
-            console.log(err)
+            let response = {
+                Response:ERROR,
+                DATA:{err}
+            }
+            res.status(400).send(response)
         })
 })
 

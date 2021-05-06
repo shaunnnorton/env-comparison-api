@@ -105,7 +105,7 @@ describe("Users Routes", () => {
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("Users")
+                expect(res.body.DATA).to.have.property("users")
                 done()
             })
     })
@@ -116,8 +116,10 @@ describe("Users Routes", () => {
             .send()
             .end((err, res) => {
                 if (err) throw err.message
+                //console.log(res)
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("User")
+                expect(res.body.DATA).to.have.property("user")
+                expect(res.body.Response).to.equal("Success")
                 done()
             })
     })
@@ -128,8 +130,8 @@ describe("Users Routes", () => {
             .send({ DATA: { password: "password" } })
             .end((err, res) => {
                 if (err) throw err.message
-                expect(res).to.have.status(200)
-                expect(res.body).to.have.property("User")
+                expect(res).to.have.status(201)
+                expect(res.body.DATA).to.have.property("user")
                 User.findOne({ username: 'testtwo' }).then((result) => {
                     expect(result).to.be.an("Object")
                     done()
@@ -145,7 +147,7 @@ describe("Users Routes", () => {
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("User")
+                expect(res.body.DATA).to.have.property("user")
                 User.findOne({ username: 'testthree' }).then((result) => {
                     //console.log(result)
                     expect(result).to.be.an("Object")
@@ -169,7 +171,7 @@ describe("Users Routes", () => {
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("User")
+                expect(res.body.DATA).to.have.property("user")
                 User.findOne({ username: 'testone' }).then((result) => {
                     expect(result).to.equal(null)
                     done()
@@ -185,8 +187,8 @@ describe("Users Routes", () => {
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("user")
-                expect(res.body).to.have.property("hardware")
+                expect(res.body.DATA).to.have.property("user")
+                expect(res.body.DATA).to.have.property("hardware")
                 done()
             })
     })
@@ -200,10 +202,10 @@ describe("Users Routes", () => {
                 specs: "intel" }}})
             .end((err, res) => {
                 if (err) throw err.message
-                expect(res).to.have.status(200)
-                expect(res.body).to.have.property("user")
-                expect(res.body).to.have.property("hardware")
-                expect(res.body.hardware[1]).to.have.deep.property("name","DustomNameTEST")
+                expect(res).to.have.status(201)
+                expect(res.body.DATA).to.have.property("user")
+                expect(res.body.DATA).to.have.property("hardware")
+                expect(res.body.DATA.hardware[1]).to.have.deep.property("name","DustomNameTEST")
                 done()
             })
     })
@@ -215,9 +217,9 @@ describe("Users Routes", () => {
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("user")
-                expect(res.body).to.have.property("hardware")
-                expect(res.body.hardware).to.have.deep.property("specs", "intel33")
+                expect(res.body.DATA).to.have.property("user")
+                expect(res.body.DATA).to.have.property("hardware")
+                expect(res.body.DATA.hardware).to.have.deep.property("specs", "intel33")
                 done()
             })
     })
@@ -230,9 +232,9 @@ describe("Users Routes", () => {
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("user")
-                expect(res.body).to.have.property("hardware")
-                expect(res.body.hardware).to.have.deep.property("type", "computer")
+                expect(res.body.DATA).to.have.property("user")
+                expect(res.body.DATA).to.have.property("hardware")
+                expect(res.body.DATA.hardware).to.have.deep.property("type", "computer")
                 done()
             })
     })
@@ -245,8 +247,8 @@ describe("Users Routes", () => {
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("user")
-                expect(res.body).to.have.property("software")
+                expect(res.body.DATA).to.have.property("user")
+                expect(res.body.DATA).to.have.property("software")
                 done()
             })
     })
@@ -257,10 +259,10 @@ describe("Users Routes", () => {
             .send({DATA:{userpassword:"password",software:{ name: "BACKOS", version: "Big Tur", type: "OS" }}})
             .end((err, res) => {
                 if (err) throw err.message
-                expect(res).to.have.status(200)
-                expect(res.body).to.have.property("user")
-                expect(res.body).to.have.property("software")
-                expect(res.body.software[0]).to.have.deep.property("version", "Big Tur")
+                expect(res).to.have.status(201)
+                expect(res.body.DATA).to.have.property("user")
+                expect(res.body.DATA).to.have.property("software")
+                expect(res.body.DATA.software[0]).to.have.deep.property("version", "Big Tur")
                 done()
             })
     })
@@ -272,9 +274,9 @@ describe("Users Routes", () => {
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("user")
-                expect(res.body).to.have.property("software")
-                expect(res.body.software).to.have.deep.property("type", "OSx")
+                expect(res.body.DATA).to.have.property("user")
+                expect(res.body.DATA).to.have.property("software")
+                expect(res.body.DATA.software).to.have.deep.property("type", "OSx")
                 done()
             })
     })
@@ -287,9 +289,9 @@ describe("Users Routes", () => {
             .end((err, res) => {
                 if (err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("user")
-                expect(res.body).to.have.property("software")
-                expect(res.body.software).to.not.have.deep.property("type", "OS")
+                expect(res.body.DATA).to.have.property("user")
+                expect(res.body.DATA).to.have.property("software")
+                expect(res.body.DATA.software).to.not.have.deep.property("type", "OS")
                 done()
             })
     })

@@ -46,7 +46,7 @@ describe("Software Routes", ()=>{
             .end((err,res)=>{
                 if(err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.have.property("software")
+                expect(res.body.DATA).to.have.property("software")
                 done()
             })
     })

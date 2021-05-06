@@ -1,8 +1,7 @@
-import { response, Router } from "express"
+import { Router } from "express"
 import bcrypt from "bcryptjs"
 import User from "./../models/User"
 import Software from "./../models/Software"
-import { user } from "../../../Reddit-Tutorial/src/data/reddit-db"
 
 
 const authUser = (req, res, next) => {

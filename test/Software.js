@@ -5,7 +5,7 @@ import chaiHttp from "chai-http"
 const should = chai.should()
 const expect = chai.expect
 
-//import Software from "./../src/models/Software"
+import Software from "./../src/models/Software"
 
 chai.use(chaiHttp)
 
@@ -13,17 +13,30 @@ describe("Software Routes", ()=>{
     const agent = chai.request.agent(app)
     const sampleSoftware = {
         type:"OS",
-        name:"Mac OS",
+        name:"Fac OS",
         version:"11.3"
     }
-    beforeEach((done) => {
-        //Create sampleSoftware
-        done()
+    before((done) => {
+        let newSoftware = new Software(sampleSoftware)
+        newSoftware.save()
+            .then(()=>{
+                done()
+            })
+            .catch(err=> {
+                err
+            })
     })
 
-    afterEach((done) => {
+    after((done) => {
         //Remove sampleSoftware
-        done()
+        Software.deleteMany({name:"Fac OS"})
+            .then(res => {
+                console.log(res)
+                done()
+            })
+            .catch(err => {
+                console.log(err)
+            })
     })
 
     it("Should return a list of software with type OS", (done)=> {
@@ -33,7 +46,7 @@ describe("Software Routes", ()=>{
             .end((err,res)=>{
                 if(err) throw err.message
                 expect(res).to.have.status(200)
-                expect(res.body).to.include("software")
+                expect(res.body).to.have.property("software")
                 done()
             })
     })

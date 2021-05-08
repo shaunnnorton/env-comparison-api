@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "--exec babel-node src/server.js",
+    "start": "babel-node src/server.js",
     "test": "mocha --require @babel/register",
     "heroku": "babel-node src/server.js"
   },

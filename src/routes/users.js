@@ -133,5 +133,7 @@ router.delete("/:username", authUser,(req,res) => {
         })
 })
 
+router.get("/compare")
+
 
 export default router

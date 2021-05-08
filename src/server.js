@@ -1,6 +1,9 @@
+import dotenv from "dotenv"
+dotenv.config()
 import express from "express"
 import { readyState } from "./data/env-api-db"
 import routes from "./routes/index"
+
 
 const app = express()
 

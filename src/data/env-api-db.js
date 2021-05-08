@@ -1,7 +1,12 @@
+import dotenv from "dotenv"
+dotenv.config()
 import mongoose from "mongoose"
 import assert from "assert"
 
-const url = "mongodb://localhost/env-api"
+
+
+console.log(process.env.DatabaseUrl)
+const url = process.env.DatabaseUrl
 
 mongoose.Promise = global.Promise
 mongoose.connect(

@@ -18,7 +18,9 @@ app.use('/users',routes.usersSoftware)
 app.use("/hardware",routes.hardware)
 app.use("/software",routes.software)
 
-
+app.get("/", (req,res) => {
+    res.redirect('https://shaunnnorton.github.io/env-comparison-api/#/')
+})
 
 
 

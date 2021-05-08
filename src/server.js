@@ -22,7 +22,7 @@ app.use("/software",routes.software)
 
 
 
-const port = 7689
+const port = process.env.PORT
 
 app.listen(port, () => {
     console.log("API listening on port 7689")

@@ -9,7 +9,7 @@
   "scripts": {
     "start": "babel-node src/server.js",
     "test": "mocha --require @babel/register",
-    "heroku": "babel-node src/server.js"
+    "localstart": "nodemon --exec babel-node src/server.js"
   },
   "repository": {
     "type": "git",

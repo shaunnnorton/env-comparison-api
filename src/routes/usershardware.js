@@ -2,7 +2,6 @@ import { response, Router } from "express"
 import bcrypt from "bcryptjs"
 import User from "./../models/User"
 import Hardware from "./../models/Hardware"
-import { user } from "../../../Reddit-Tutorial/src/data/reddit-db"
 
 
 const authUser = (req, res, next) => {
